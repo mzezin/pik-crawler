@@ -1,4 +1,3 @@
-
 import puppeteer from 'puppeteer';
 
 import { login, password, propertyId } from './config';
@@ -10,7 +9,7 @@ const PASSWORD_SELECTOR = '#password';
 const SUBMIT_SELECTOR = '#app > div.Page.no-scroll > div > div > div > div > div.Form > div > div > button';
 const KEYS_STATUS_SELECTOR = '#app > div.Page > div:nth-child(1) > div > div.PageLayout-wrapper > div > div.ObjectPage-content > div.StatusDealPage > div.StatusDealPage-container > div:nth-child(2) > div.StatusDealPage-list.StatusDealPage-circle.StatusDealPage-circle--waiting.StatusDealPage-circle-nextSteps > div:nth-child(3) > div.StatusDealPage-status';
 
-const getObjectStatus = async () => {
+const getPropertyStatus = async () => {
   const browser = await puppeteer.launch({
     defaultViewport: {
       width: 1300,
@@ -39,10 +38,8 @@ const getObjectStatus = async () => {
   const { _remoteObject: { value: status } } = await statusElement.getProperty('innerHTML');
 
   browser.close();
-  return {
-    timestamp: (new Date()).toLocaleString(),
-    status,
-  };
+  console.log('Status fetched: ', status);
+  return status;
 };
 
-getObjectStatus().then(r => console.log(r));
+export default getPropertyStatus;

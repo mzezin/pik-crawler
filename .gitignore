@@ -4,4 +4,4 @@ yarn-error.log
 yarn.lock
 .compiled/
 .vscode/
-config.js
+src/config.js
