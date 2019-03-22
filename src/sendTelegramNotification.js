@@ -1,7 +1,7 @@
 import Telegraf from 'telegraf';
 import Agent from 'socks5-https-client/lib/Agent';
 
-import { socksAgentOptions, botToken } from './config';
+import { socksAgentOptions, botToken, chatId } from './config';
 
 const socksAgent = new Agent(socksAgentOptions);
 
@@ -15,11 +15,10 @@ const sendTelegramNotification = async (msg) => {
     bot.start();
     await bot.launch();
     console.log('Bot launched, incoming status: ', msg);
-    await bot.telegram.sendMessage('-373754479', msg);
+    await bot.telegram.sendMessage(chatId, msg);
     bot.stop();
   } catch (err) {
     console.log(err);
-    process.exitCode = 1;
   }
 };
 

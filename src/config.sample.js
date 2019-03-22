@@ -9,3 +9,4 @@ export const socksAgentOptions = {
   socksPassword: 'p@$$w0rd',
 };
 export const botToken = '111111111:AAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+export const chatId = '-11111111';
