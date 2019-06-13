@@ -9,17 +9,25 @@ const botOptions = {
   telegram: { agent: socksAgent },
 };
 
-const sendTelegramNotification = async (msg) => {
+const bot = new Telegraf(botToken, botOptions);
+
+export const connect = async () => {
   try {
-    const bot = new Telegraf(botToken, botOptions);
+    bot.on('message', ctx => ctx.reply('Я работаю'))
     bot.start();
     await bot.launch();
-    console.log('Bot launched, incoming status: ', msg);
-    await bot.telegram.sendMessage(chatId, msg);
-    bot.stop();
+    console.log('Bot launched');
   } catch (err) {
     console.log(err);
   }
 };
 
-export default sendTelegramNotification;
+
+export const sendTelegramNotification = async (msg) => {
+  try {
+     await bot.telegram.sendMessage(chatId, msg);
+  } catch (err) {
+    console.log(err);
+  }
+};
+

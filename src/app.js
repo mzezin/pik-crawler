@@ -1,18 +1,28 @@
-import getPropertyStatus from './getPropertyStatus';
-import sendTelegramNotification from './sendTelegramNotification';
+import  getPropertyStatus from './getPropertyStatus';
+import { connect, sendTelegramNotification } from './sendTelegramNotification';
+
+
 
 const main = async () => {
   try {
     const status = await getPropertyStatus();
-    const message = status === 'Запись на получение ключей скоро откроется'
-      ? 'Пока ничего нового 😔'
-      : `🔑🔑🔑 Новый статус ключей: ${status}`;
-    await sendTelegramNotification(message);
-    process.exit();
+    const news = status !== 'Запись на получение ключей скоро откроется';
+    if (news) await sendTelegramNotification(status);
   } catch (err) {
     console.log(err);
-    process.exit();
   }
 };
 
-main();
+const healthCheck = async () => {
+  try {
+   await sendTelegramNotification('Бот запущен');
+     } catch (err) {
+    console.log(err);
+   }
+};
+
+connect().then(() => {
+  healthCheck();
+  setInterval(main, 120000);//check status
+//  setInterval(healthCheck, 10800000); //check if bot is running
+});

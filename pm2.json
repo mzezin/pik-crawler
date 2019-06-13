@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "pik-keys-check-bot",
+            "script": "npm",
+            "args" : "start"
+        }
+    ]
+}
